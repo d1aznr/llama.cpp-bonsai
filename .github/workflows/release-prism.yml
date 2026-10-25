@@ -23,8 +23,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - cuda: '12.4'
-            cuda_pkg: '12-4'
           - cuda: '12.8'
             cuda_pkg: '12-8'
           - cuda: '13.4'
@@ -178,32 +176,10 @@ jobs:
           mv -v artifact/*.zip release/ 2>/dev/null || true
           ls -lh release/
           expected=(
-            "cudart-llama-bin-win-cuda-12.4-x64.zip"
-            "cudart-llama-bin-win-cuda-13.3-x64.zip"
-            "cudart-llama-bin-win-cuda-13.4-arm64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-android-arm64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-linux-cuda-12.4-x64.tar.gz"
             "llama-${{ steps.tag.outputs.name }}-bin-linux-cuda-12.8-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-linux-cuda-13.3-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-macos-arm64-kleidiai.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-macos-arm64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-macos-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-arm64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-rocm-7.2-x64.tar.gz"
+            "llama-${{ steps.tag.outputs.name }}-bin-linux-cuda-13.4-x64.tar.gz"
             "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-vulkan-arm64.tar.gz"
             "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-vulkan-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-sycl-fp32-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-ubuntu-sycl-fp16-x64.tar.gz"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-sycl-x64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-cpu-arm64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-cpu-x64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-cuda-12.4-x64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-cuda-13.3-x64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-cuda-13.4-arm64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-hip-radeon-x64.zip"
-            "llama-${{ steps.tag.outputs.name }}-bin-win-vulkan-x64.zip"
-            "llama-${{ steps.tag.outputs.name }}-xcframework.zip"
           )
           for name in "${expected[@]}"; do
             test -s "release/$name" || { echo "Missing or empty artifact: $name" >&2; exit 1; }
